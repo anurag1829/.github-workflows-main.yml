@@ -1,0 +1,25 @@
+name: CodeRabbit Code Review
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CodeRabbit
+        uses: coderabbitai/setup@v1
+        with:
+          api-key: ${{ secrets.CODERABBIT_API_KEY }}
+
+      - name: Run CodeRabbit review
+        uses: coderabbitai/review@v1
+        with:
+          file-filter: '**/*.{py,js,java,cpp,csharp,go,ts,tsx,jsx}'
+          ignore-pr-types: 'docs,chore'
+          ignore-files: '.github/*,.vscode/*,node_modules/*,dist/*'
